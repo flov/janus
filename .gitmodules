@@ -1,0 +1,27 @@
+[submodule "molokai"]
+	path = molokai
+	url = https://github.com/tomasr/molokai
+[submodule "vim-prettier"]
+	path = vim-prettier
+	url = https://github.com/prettier/vim-prettier
+[submodule "vim-airline"]
+	path = vim-airline
+	url = https://github.com/vim-airline/vim-airline
+[submodule "vim-airline-themes"]
+	path = vim-airline-themes
+	url = https://github.com/vim-airline/vim-airline-themes
+[submodule "vim-tmux-navigator"]
+	path = vim-tmux-navigator
+	url = https://github.com/christoomey/vim-tmux-navigator.git
+[submodule "gruvbox"]
+	path = gruvbox
+	url = https://github.com/morhetz/gruvbox.git
+[submodule "vim-snippets"]
+	path = vim-snippets
+	url = git@github.com:flov/vim-snippets.git
+[submodule "vim-rhubarb"]
+	path = vim-rhubarb
+	url = https://github.com/tpope/vim-rhubarb.git
+[submodule "vim-emoji"]
+	path = vim-emoji
+	url = https://github.com/junegunn/vim-emoji.git
