@@ -1,0 +1,205 @@
+let mapleader=","
+
+colorscheme gruvbox
+
+" Softtabs, 2 spaces
+set tabstop=2
+set softtabstop=2
+set shiftwidth=2
+set shiftround
+set expandtab " Expand TABs to spaces
+
+" Open new split panes to right and bottom, which feels more natural than
+" Vim’s default:
+set splitbelow
+set splitright
+
+" Undo settings
+set undofile                " Save undo's after file closes
+set undodir=$HOME/.vim/undo " where to save undo histories
+set undolevels=1000         " How many undos
+set undoreload=10000        " number of lines to save for undo
+set backupdir=$HOME/.swp,/tmp
+set directory=$HOME/.swp,/tmp
+set encoding=utf-8
+
+" Bigger line spaces
+set linespace=3
+
+" air-line
+let g:airline_powerline_fonts = 1
+
+if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+endif
+
+" unicode symbols
+let g:airline_left_sep = '»'
+let g:airline_left_sep = '▶'
+let g:airline_right_sep = '«'
+let g:airline_right_sep = '◀'
+let g:airline_symbols.linenr = '␊'
+let g:airline_symbols.linenr = '␤'
+let g:airline_symbols.linenr = '¶'
+let g:airline_symbols.branch = '⎇'
+let g:airline_symbols.paste = 'ρ'
+let g:airline_symbols.paste = 'Þ'
+let g:airline_symbols.paste = '∥'
+let g:airline_symbols.whitespace = 'Ξ'
+
+" airline symbols
+let g:airline_left_sep = ''
+let g:airline_left_alt_sep = ''
+let g:airline_right_sep = ''
+let g:airline_right_alt_sep = ''
+let g:airline_symbols.branch = ''
+let g:airline_symbols.readonly = ''
+let g:airline_symbols.linenr = ''
+
+" CtrlP
+" Exclude files and directories using Vim's wildignore and
+" CtrlP's own g:ctrlp_custom_ignore
+if exists("g:ctrlp_user_command")
+  unlet g:ctrlp_user_command
+endif
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*/vendor,*/.DS_Store,*/public,*/node_modules
+let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp'
+let g:ctrlp_map = ''
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v[\/]\.(git|hg|svn|public|coverage|node_modules|log)$',
+  \ 'file': '\.pyc$\|\.pyo$\|\.rbc$|\.rbo$\|\.class$\|\.o$\|\~$\',
+  \ }
+if executable('ag')
+  let g:ackprg = 'ag --vimgrep'
+endif
+
+" Syntastic
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_error_symbol = '❌'
+let g:syntastic_style_error_symbol = '⁉️'
+let g:syntastic_warning_symbol = '⚠️'
+let g:syntastic_style_warning_symbol = '💩'
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 0
+let g:syntastic_loc_list_height = 5
+
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let g:syntastic_javascript_checkers=['eslint']
+let g:syntastic_javascript_eslint_exe='npm run lint --'
+let g:syntastic_mode_map = { 'mode': 'passive',
+                            \ 'active_filetypes': ['python', 'ruby'],
+                            \ 'passive_filetypes': ['html', 'javascript'] }
+highlight link SyntasticErrorSign SignColumn
+highlight link SyntasticWarningSign SignColumn
+highlight link SyntasticStyleErrorSign SignColumn
+highlight link SyntasticStyleWarningSign SignColumn
+
+" Tsuquyomi - Typescript Plugin
+let g:tsuquyomi_disable_quickfix = 1
+let g:syntastic_typescript_checkers = ['tsuquyomi'] " You shouldn't use 'tsc' checker.
+" shows method signature on auto completion, turn off if it becomes too
+" slow
+let g:tsuquyomi_completion_detail = 0
+let g:tsuquyomi_disable_quickfix = 1
+let g:syntastic_typescript_checkers = ['tsuquyomi'] " You shouldn't use 'tsc' checker.
+imap <C-f> <C-x><C-o>
+set ballooneval
+autocmd FileType typescript setlocal balloonexpr=tsuquyomi#balloonexpr()
+
+" tslime
+let g:tslime_always_current_session = 1
+let g:tslime_always_current_window = 1
+vmap <C-c><C-c> <Plug>SendSelectionToTmux
+nmap <C-c>r <Plug>SetTmuxVars
+
+" Mappings
+map <C-y> :CtrlPClearCache<CR>
+map <C-f> :NERDTreeFind<CR>
+map <C-p> :CtrlP<CR>
+" find another shortcut, C-r is redo
+nmap gr :TsuRenameSymbol<CR>
+
+" Get out of insert mode by typing `jj`
+imap jj <C-c>
+imap jk <C-c>
+
+nmap gp :diffput<CR>
+nmap gb :Gblame<CR>
+nmap gi :TsuImport<CR>
+map <Leader>q :TsuQuickFix<CR>
+
+"nmap gv :10sp ~/.vimrc.after<CR>
+
+" inside visual mode wrap in parathesis
+vmap " S"
+vmap ' S'
+vmap ) S)
+
+" hit return after searching to remove highlighting
+nnoremap <CR> :noh<CR><CR>
+
+" Leader mappings 
+map <Leader>w :w<CR>
+map <Leader>s :set splitbelow&<CR>:Gstatus<CR><C-w>10-:set splitbelow<CR>
+
+map <Leader>z :ZoomWin<CR>
+map <Leader>a :exe 'Ack searchpattern' expand('%:p:h')
+map <C-g> :Ack 
+map <Leader>y :Dispatch !npm install --save 
+map <Leader>d :Gdiffsplit<CR>
+map <Leader>e :exec "r! node -e 'console.log(".getline('.').")'"<CR>
+map <Leader>r :exec "r! ruby -e 'puts ".getline('.')."'"<CR>
+map <Leader>g :SyntasticCheck<CR>
+map <Leader>[ :e ~/.janus/vim-snippets/snippets/javascript/javascript.flov.snippets<CR>
+map <Leader>p :Prettier<CR>
+map <Leader>t :ALEToggle<CR>
+map <Leader>o :e ~/.vimrc<CR>
+map <Leader>n :NERDTreeToggle<CR>
+map <Leader>b :BuffergatorToggle<CR>
+map <Leader>c :Gcommit<CR>
+
+" copy to clipboard
+noremap  y "*y
+noremap  Y "*Y
+noremap  p "*p
+noremap  P "*P
+vnoremap y "*y
+vnoremap Y "*Y
+vnoremap p "*p
+vnoremap P "*P
+
+" vim-Prettier:
+let g:prettier#autoformat = 0
+autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html PrettierAsync
+
+" EMOJI complete - brauch ich nicht...
+" let g:emoji_complete_overwrite_standard_keymaps = 0
+" imap <C-f> <Plug>(emoji-start-complete)
+
+" tmux vim navigator
+let g:tmux_navigator_no_mappings = 1
+nnoremap <C-h> :TmuxNavigateLeft<cr>
+nnoremap <C-j> :TmuxNavigateDown<cr>
+nnoremap <C-k> :TmuxNavigateUp<cr>
+nnoremap <C-l> :TmuxNavigateRight<cr>
+nnoremap <silent> <C-h> :TmuxNavigateLeft<cr>
+nnoremap <silent> <C-j> :TmuxNavigateDown<cr>
+nnoremap <silent> <C-k> :TmuxNavigateUp<cr>
+nnoremap <silent> <C-l> :TmuxNavigateRight<cr>
+nnoremap <silent> <C-\> :TmuxNavigatePrevious<cr>
+
+" CtrlP for Command p
+nmap <D-p> :CtrlP<CR>
+
+let g:move_key_modifier = 'C'
+
+" SnipMate
+" adds html snippets to javascript files
+" let g:snipMate.scope_aliases['javascript'] = 'html'
+
+let g:ale_completion_tsserver_autoimport = 1

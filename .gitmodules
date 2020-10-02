@@ -25,3 +25,12 @@
 [submodule "vim-emoji"]
 	path = vim-emoji
 	url = https://github.com/junegunn/vim-emoji.git
+[submodule "vim-emoji-complete"]
+	path = vim-emoji-complete
+	url = https://github.com/kyuhi/vim-emoji-complete
+[submodule "vimproc.vim"]
+	path = vimproc.vim
+	url = https://github.com/Shougo/vimproc.vim.git
+[submodule "tsuquyomi"]
+	path = tsuquyomi
+	url = https://github.com/Quramy/tsuquyomi.git
